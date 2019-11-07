@@ -41,12 +41,6 @@ class App extends Component {
     console.log(data);
   }
 
-  componentDidMount() {
-    fetch('http://localhost:3030/users')
-      .then(response => response.json())
-      .then(console.log);
-  }
-
   calculateFaceLocation = (data) => {
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputImage');
@@ -95,7 +89,10 @@ class App extends Component {
         <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange}/>
         { this.state.route === 'home' ?
           <div>
-            <Rank/>
+            <Rank
+              name={this.state.user.name}
+              entries={this.state.user.entries}
+            />
             <ImageLinkForm 
               onInputChange={this.onInputChange} 
               onButtonSubmit={this.onButtonSubmit}
